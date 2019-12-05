@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.cluster import KMeans, AgglomerativeClustering,
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.mixture import GaussianMixture
 
 
