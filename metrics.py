@@ -190,3 +190,34 @@ def gap_optimal_k(gap_means, gap_stds, k_range):
 # Bayes Information Criterion (BIC)
 def bic():
     pass
+
+
+# Degree of membership matrix
+"""Reference:
+    Fuzzy C-means
+    @misc{fuzzy-c-means,
+    author       = "Madson Luiz Dantas Dias",
+    year         = "2019",
+    title        = "fuzzy-c-means: An implementation of Fuzzy $C$-means clustering algorithm.",
+    url          = "https://github.com/omadson/fuzzy-c-means",
+    institution  = "Federal University of Cear\'{a}, Department of Computer Science" 
+    }
+    ----------
+    .. [1] `Pattern Recognition with Fuzzy Objective Function Algorithms
+        <https://doi.org/10.1007/978-1-4757-0450-1>`_
+    .. [2] `FCM: The fuzzy c-means clustering algorithm
+        <https://doi.org/10.1016/0098-3004(84)90020-7>`_
+    """
+def u(X, labels, m):
+    k_range = np.unique(labels)
+
+    means = [np.mean(X[labels == l], axis=0) for l in k_range]
+    means = np.reshape(means, [k_range.__len__(), X.shape[1]])
+    
+    power = float(2 / (m - 1))
+    temp = cdist(X, means) ** power
+    denominator_ = temp.reshape(
+        (X.shape[0], 1, -1)).repeat(temp.shape[-1], axis=1)
+    denominator_ = temp[:, :, np.newaxis] / denominator_
+
+    return 1 / denominator_.sum(2)
