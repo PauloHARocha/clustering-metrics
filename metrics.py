@@ -208,7 +208,7 @@ def bic():
     .. [2] `FCM: The fuzzy c-means clustering algorithm
         <https://doi.org/10.1016/0098-3004(84)90020-7>`_
     """
-def u(X, labels, m):
+def u_ij(X, labels, m):
     k_range = np.unique(labels)
 
     means = [np.mean(X[labels == l], axis=0) for l in k_range]
